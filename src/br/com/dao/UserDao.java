@@ -11,8 +11,8 @@ import java.util.List;
 
 public class UserDao extends GenDAO<User, UserFilter> {
 
-    public UserDao(final Connection connection, final Class especificClass) {
-        super(connection, especificClass);
+    public UserDao(final Connection connection) {
+        super(connection, User.class);
     }
 
     @Override

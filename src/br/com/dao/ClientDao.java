@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ClientDao extends GenDAO<Client, ClientFilter> {
 
-    public ClientDao(final Connection connection, final Class especificClass) {
-        super(connection, especificClass);
+    public ClientDao(final Connection connection) {
+        super(connection, Client.class);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
         }
 
         query.setText(sql.toString());
-        
+
         query.open();
 
         final List<Client> entities = new LinkedList<>();

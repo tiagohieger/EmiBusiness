@@ -6,11 +6,30 @@ import br.com.entitys.Address;
 import br.com.entitys.Bank;
 import br.com.entitys.User;
 import br.com.factory.Connection;
+import br.com.filters.UserFilter;
 import br.com.generic.GenericDAO;
+import java.util.List;
 
 public class UserRn extends GenRn {
 
+    public List<User> list(final UserFilter userFilter) throws Throwable {
+
+        final Connection connection = DB.getConnection();
+        try {
+            return list(userFilter, connection);
+        } finally {
+            DB.closeConnection(connection);
+        }
+    }
+
+    protected List<User> list(final UserFilter userFilter, final Connection connection) throws Throwable {
+
+        final UserDao dao = new UserDao(connection);
+        return dao.list(userFilter);
+    }
+
     public User save(final User user) throws Throwable {
+
         final Connection connection = DB.getConnection();
         try {
             return save(user, connection);
@@ -21,8 +40,8 @@ public class UserRn extends GenRn {
 
     protected User save(final User user, final Connection connection) throws Throwable {
 
-        final UserDao dao = new UserDao(connection, User.class);
-        dao.save(user);
+        final UserDao userDao = new UserDao(connection);
+        userDao.save(user);
 
         if (user.getAddress() != null) {
             final GenericDAO<Address> genDao = new GenericDAO<>(connection, Address.class);

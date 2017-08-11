@@ -24,8 +24,8 @@ public class ClientRn extends GenRn {
 
     protected List<Client> list(final ClientFilter clientFilter, final Connection connection) throws Throwable {
 
-        final ClientDao clientDao = new ClientDao(connection, Client.class);
-        return clientDao.list(clientFilter);
+        final ClientDao dao = new ClientDao(connection);
+        return dao.list(clientFilter);
     }
 
     public Client save(final Client client) throws Throwable {
@@ -40,7 +40,7 @@ public class ClientRn extends GenRn {
 
     protected Client save(final Client client, final Connection connection) throws Throwable {
 
-        final ClientDao clientDao = new ClientDao(connection, Client.class);
+        final ClientDao clientDao = new ClientDao(connection);
         clientDao.save(client);
 
         if (client.getUser() != null) {
