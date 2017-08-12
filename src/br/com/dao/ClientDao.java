@@ -31,28 +31,28 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
 
         final StringBuilder sql = new StringBuilder();
 
-        sql.append("SELECT * FROM (");
+        sql.append(" SELECT * FROM ( ");
         sql.append(query.getText());
-        sql.append(") AS ").append(Client.TABLE_NAME);
+        sql.append(" ) AS ").append(Client.TABLE_NAME);
 
         sql.append(" JOIN  ")
                 .append(Address.TABLE_NAME)
                 .append(" ON ")
                 .append(Entity.fullColumn(Address.TABLE_NAME, Address.Columns.ID))
                 .append(" = ")
-                .append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.ADDRESS));
+                .append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.ADDRESS));
         sql.append(" JOIN  ")
                 .append(User.TABLE_NAME)
                 .append(" ON ")
                 .append(Entity.fullColumn(User.TABLE_NAME, User.Columns.ID))
                 .append(" = ")
-                .append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.USER));
+                .append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.USER));
         sql.append(" LEFT JOIN  ")
                 .append(Product.TABLE_NAME)
                 .append(" ON ")
                 .append(Entity.fullColumn(Product.TABLE_NAME, Product.Columns.CLIENT))
                 .append(" = ")
-                .append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.ID));
+                .append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.ID));
 
         if (filter.getOrderBy() != null) {
             sql.append(" ORDER BY ");
@@ -69,8 +69,6 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
 
         while (query.next()) {
 
-            final Address address = (Address) SQLUtils.entityPopulate(query, Address.class);
-            final User user = (User) SQLUtils.entityPopulate(query, User.class);
             final Product product = (Product) SQLUtils.entityPopulate(query, Product.class);
             Client client = (Client) SQLUtils.entityPopulate(query, Client.class);
 
@@ -84,6 +82,9 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
                 }
 
             } else {
+
+                final Address address = (Address) SQLUtils.entityPopulate(query, Address.class);
+                final User user = (User) SQLUtils.entityPopulate(query, User.class);
 
                 if (address != null) {
                     client.setAddress(address);
@@ -119,28 +120,44 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
         if (filter.getText() != null && !filter.getText().trim().isEmpty()) {
 
             sql.append(" AND ( ");
-            sql.append(" (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.NAME)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.CONTACT)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.EMAIL)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.FANTASY)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE_TYPE)).append(") LIKE ?) ");
+            sql.append(" (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.NAME)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.CONTACT)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.EMAIL)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.FANTASY)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE_TYPE)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PERSON_TYPE)).append(") LIKE ?) ");
             sql.append(" ) ");
 
-            for (int i = 0, paransCount = 7; i < paransCount; i++) {
+            for (int i = 0, paransCount = 8; i < paransCount; i++) {
                 query.addParam("%" + filter.getText().toLowerCase() + "%");
             }
         }
 
         if (filter.getType() != null) {
-            sql.append(" AND ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.PERSON_TYPE)).append(" = ? ");
+            sql.append(" AND ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PERSON_TYPE)).append(" = ? ");
             query.addParam(filter.getType().toString());
         }
 
         if (filter.getDocument() != null) {
-            sql.append(" AND ").append(Client.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append(" = ? ");
+            sql.append(" AND ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append(" = ? ");
             query.addParam(filter.getDocument());
+        }
+
+        if (filter.getIsActive() != null) {
+            sql.append(" AND ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.IS_ACTIVE)).append(" = ? ");
+            query.addParam(filter.getIsActive());
+        }
+
+        if (filter.getPhone() != null) {
+            sql.append(" AND ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE)).append(" = ? ");
+            query.addParam(filter.getPhone());
+        }
+
+        if (filter.getUser() != null) {
+            sql.append(" AND ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.USER)).append(" = ? ");
+            query.addParam(filter.getUser());
         }
 
         if (filter.getMinRegistrationDate() != null) {
