@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.IndicationCommentDao;
 import br.com.entitys.IndicationComment;
@@ -21,7 +22,7 @@ public class IndicationCommentRn extends GenRn {
 
     protected List<IndicationComment> list(final IndicationCommentFilter icFilter, final Connection connection) throws Throwable {
 
-        final IndicationCommentDao dao = new IndicationCommentDao(connection);
+        final IndicationCommentDao dao = GenDao.newInstance(IndicationComment.class, connection);
         return dao.list(icFilter);
     }
 
@@ -37,7 +38,7 @@ public class IndicationCommentRn extends GenRn {
 
     protected IndicationComment save(final IndicationComment ic, final Connection connection) throws Throwable {
 
-        final IndicationCommentDao icDao = new IndicationCommentDao(connection);
+        final IndicationCommentDao icDao = GenDao.newInstance(IndicationComment.class, connection);
         return icDao.save(ic);
     }
 

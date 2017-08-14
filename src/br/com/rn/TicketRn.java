@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.TicketDao;
 import br.com.entitys.Ticket;
@@ -21,7 +22,7 @@ public class TicketRn extends GenRn {
 
     protected List<Ticket> list(final TicketFilter ticketFilter, final Connection connection) throws Throwable {
 
-        final TicketDao dao = new TicketDao(connection);
+        final TicketDao dao = GenDao.newInstance(Ticket.class, connection);
         return dao.list(ticketFilter);
     }
 
@@ -37,7 +38,7 @@ public class TicketRn extends GenRn {
 
     protected Ticket save(final Ticket ticket, final Connection connection) throws Throwable {
 
-        final TicketDao ticketDao = new TicketDao(connection);
+        final TicketDao ticketDao = GenDao.newInstance(Ticket.class, connection);
         return ticketDao.save(ticket);
     }
 

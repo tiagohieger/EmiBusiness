@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.EvaluationDao;
 import br.com.entitys.Evaluation;
@@ -21,7 +22,7 @@ public class EvaluationRn extends GenRn {
 
     protected List<Evaluation> list(final EvaluationFilter evaluationFilter, final Connection connection) throws Throwable {
 
-        final EvaluationDao dao = new EvaluationDao(connection);
+        final EvaluationDao dao = GenDao.newInstance(Evaluation.class, connection);
         return dao.list(evaluationFilter);
     }
 
@@ -37,7 +38,7 @@ public class EvaluationRn extends GenRn {
 
     protected Evaluation save(final Evaluation evaluation, final Connection connection) throws Throwable {
 
-        final EvaluationDao evaluationDao = new EvaluationDao(connection);
+        final EvaluationDao evaluationDao = GenDao.newInstance(Evaluation.class, connection);
         return evaluationDao.save(evaluation);
     }
 

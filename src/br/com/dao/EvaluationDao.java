@@ -1,6 +1,6 @@
 package br.com.dao;
 
-import br.com.base.GenDAO;
+import br.com.base.GenDao;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
 import br.com.entitys.Evaluation;
@@ -8,7 +8,7 @@ import br.com.entitys.User;
 import br.com.factory.Connection;
 import br.com.factory.Query;
 import br.com.filters.EvaluationFilter;
-import static br.com.generic.GenericDAO.DATE_FORMATTER;
+import static br.com.generic.GenericDao.DATE_FORMATTER;
 import br.com.utils.DateUtils;
 import br.com.utils.PersistenceUtils;
 import br.com.utils.SQLUtils;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class EvaluationDao extends GenDAO<Evaluation, EvaluationFilter> {
+public class EvaluationDao extends GenDao<Evaluation, EvaluationFilter> {
     
     public EvaluationDao(final Connection connection) {
         super(connection, Evaluation.class);
@@ -85,7 +85,7 @@ public class EvaluationDao extends GenDAO<Evaluation, EvaluationFilter> {
         
         final String returns = PersistenceUtils.concat(Evaluation.TABLE_NAME + ".*", colsToReturn);
         
-        final Query query = new Query(conexao);
+        final Query query = new Query(connection);
         
         final StringBuilder sql = new StringBuilder();
         

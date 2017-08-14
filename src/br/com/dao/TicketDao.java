@@ -1,13 +1,13 @@
 package br.com.dao;
 
-import br.com.base.GenDAO;
+import br.com.base.GenDao;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
 import br.com.entitys.Ticket;
 import br.com.factory.Connection;
 import br.com.factory.Query;
 import br.com.filters.TicketFilter;
-import static br.com.generic.GenericDAO.DATE_FORMATTER;
+import static br.com.generic.GenericDao.DATE_FORMATTER;
 import br.com.utils.DateUtils;
 import br.com.utils.PersistenceUtils;
 import br.com.utils.SQLUtils;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TicketDao extends GenDAO<Ticket, TicketFilter> {
+public class TicketDao extends GenDao<Ticket, TicketFilter> {
 
     public TicketDao(final Connection connection) {
         super(connection, Ticket.class);
@@ -72,7 +72,7 @@ public class TicketDao extends GenDAO<Ticket, TicketFilter> {
 
         final String returns = PersistenceUtils.concat(Ticket.TABLE_NAME + ".*", colsToReturn);
 
-        final Query query = new Query(conexao);
+        final Query query = new Query(connection);
 
         final StringBuilder sql = new StringBuilder();
 

@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.CompanyCommentDao;
 import br.com.entitys.CompanyComment;
@@ -21,7 +22,7 @@ public class CompanyCommentRn extends GenRn {
 
     protected List<CompanyComment> list(final CompanyCommentFilter ccFilter, final Connection connection) throws Throwable {
 
-        final CompanyCommentDao dao = new CompanyCommentDao(connection);
+        final CompanyCommentDao dao = GenDao.newInstance(CompanyComment.class, connection);
         return dao.list(ccFilter);
     }
 
@@ -37,7 +38,7 @@ public class CompanyCommentRn extends GenRn {
 
     protected CompanyComment save(final CompanyComment cc, final Connection connection) throws Throwable {
 
-        final CompanyCommentDao ccDao = new CompanyCommentDao(connection);
+        final CompanyCommentDao ccDao = GenDao.newInstance(CompanyComment.class, connection);
         return ccDao.save(cc);
     }
 

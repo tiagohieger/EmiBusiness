@@ -1,6 +1,6 @@
 package br.com.dao;
 
-import br.com.base.GenDAO;
+import br.com.base.GenDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
@@ -10,7 +10,7 @@ import br.com.entitys.User;
 import br.com.factory.Connection;
 import br.com.factory.Query;
 import br.com.filters.IndicationFilter;
-import static br.com.generic.GenericDAO.DATE_FORMATTER;
+import static br.com.generic.GenericDao.DATE_FORMATTER;
 import br.com.utils.DateUtils;
 import br.com.utils.PersistenceUtils;
 import br.com.utils.SQLUtils;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class IndicationDao extends GenDAO<Indication, IndicationFilter> {
+public class IndicationDao extends GenDao<Indication, IndicationFilter> {
 
     public IndicationDao(final Connection connection) {
         super(connection, Indication.class);
@@ -109,7 +109,7 @@ public class IndicationDao extends GenDAO<Indication, IndicationFilter> {
 
         final String returns = PersistenceUtils.concat(Indication.TABLE_NAME + ".*", colsToReturn);
 
-        final Query query = new Query(conexao);
+        final Query query = new Query(connection);
 
         final StringBuilder sql = new StringBuilder();
 

@@ -1,6 +1,6 @@
 package br.com.dao;
 
-import br.com.base.GenDAO;
+import br.com.base.GenDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ClientDao extends GenDAO<Client, ClientFilter> {
+public class ClientDao extends GenDao<Client, ClientFilter> {
 
     public ClientDao(final Connection connection) {
         super(connection, Client.class);
@@ -108,7 +108,7 @@ public class ClientDao extends GenDAO<Client, ClientFilter> {
 
         final String returns = PersistenceUtils.concat(Client.TABLE_NAME + ".*", colsToReturn);
 
-        final Query query = new Query(conexao);
+        final Query query = new Query(connection);
 
         final StringBuilder sql = new StringBuilder();
 

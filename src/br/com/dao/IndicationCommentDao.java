@@ -1,6 +1,6 @@
 package br.com.dao;
 
-import br.com.base.GenDAO;
+import br.com.base.GenDao;
 import br.com.entitys.IndicationComment;
 import br.com.factory.Connection;
 import br.com.factory.Query;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class IndicationCommentDao extends GenDAO<IndicationComment, IndicationCommentFilter> {
+public class IndicationCommentDao extends GenDao<IndicationComment, IndicationCommentFilter> {
 
     public IndicationCommentDao(final Connection connection) {
         super(connection, IndicationComment.class);

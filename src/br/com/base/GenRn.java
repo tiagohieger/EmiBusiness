@@ -1,5 +1,6 @@
 package br.com.base;
 
+import br.com.entitys.Entity;
 import br.com.factory.ConnectionManage;
 import br.com.types.ConnectionType;
 
@@ -17,6 +18,31 @@ public class GenRn {
 
     static {
         DB.setConnectionData(HOST, PORT, USER, PASSWORD, BASE_NAME, SCHEMA, CONNECTION_TYPE);
+    }
+    
+    public static <RN extends GenRn, E extends Entity> RN newInstance(Class<E> entity) {
+
+        // Monta o caminho da Dao
+        final StringBuilder classPath = new StringBuilder("br.com.rn.");
+        classPath.append(entity.getSimpleName());
+        classPath.append("Rn");
+
+        try {
+
+            // Carrega a classe da Rn especifia da classe passada
+            final Class rnClass = GenDao.class.getClassLoader().loadClass(classPath.toString());
+
+            // Cria uma instância da Rn
+            return (RN) rnClass.newInstance();
+
+        } catch (ClassNotFoundException | IllegalAccessException | 
+                IllegalArgumentException | InstantiationException | SecurityException ignore) {
+            
+            // Como não foi encontrada uma Rn específica retorna uma genérica
+            return (RN) new GenRn();
+            
+        }
+
     }
 
 }

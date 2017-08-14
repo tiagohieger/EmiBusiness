@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.IndicationDao;
 import br.com.entitys.Address;
@@ -7,7 +8,6 @@ import br.com.entitys.Indication;
 import br.com.entitys.PaymentVoucher;
 import br.com.factory.Connection;
 import br.com.filters.IndicationFilter;
-import br.com.generic.GenericDAO;
 import java.util.List;
 
 public class IndicationRn extends GenRn {
@@ -24,7 +24,7 @@ public class IndicationRn extends GenRn {
 
     protected List<Indication> list(final IndicationFilter indicationFilter, final Connection connection) throws Throwable {
 
-        final IndicationDao dao = new IndicationDao(connection);
+        final IndicationDao dao = GenDao.newInstance(Indication.class, connection);
         return dao.list(indicationFilter);
     }
 
@@ -40,16 +40,16 @@ public class IndicationRn extends GenRn {
 
     protected Indication save(final Indication indication, final Connection connection) throws Throwable {
 
-        final IndicationDao indicationDao = new IndicationDao(connection);
+        final IndicationDao indicationDao = GenDao.newInstance(Indication.class, connection);
         indicationDao.save(indication);
 
         if (indication.getAddress() != null) {
-            final GenericDAO<Address> genDao = new GenericDAO<>(connection, Address.class);
+            final GenDao genDao = GenDao.newInstance(Address.class, connection);
             genDao.save(indication.getAddress());
         }
 
         if (indication.getPaymentVoucher() != null) {
-            final GenericDAO<PaymentVoucher> genDao = new GenericDAO<>(connection, PaymentVoucher.class);
+            final GenDao genDao = GenDao.newInstance(PaymentVoucher.class, connection);
             genDao.save(indication.getPaymentVoucher());
         }
 

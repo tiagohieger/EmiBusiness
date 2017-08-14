@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.UserDao;
 import br.com.entitys.Address;
@@ -7,7 +8,6 @@ import br.com.entitys.Bank;
 import br.com.entitys.User;
 import br.com.factory.Connection;
 import br.com.filters.UserFilter;
-import br.com.generic.GenericDAO;
 import java.util.List;
 
 public class UserRn extends GenRn {
@@ -24,7 +24,7 @@ public class UserRn extends GenRn {
 
     protected List<User> list(final UserFilter userFilter, final Connection connection) throws Throwable {
 
-        final UserDao dao = new UserDao(connection);
+        final UserDao dao = GenDao.newInstance(User.class, connection);
         return dao.list(userFilter);
     }
 
@@ -44,12 +44,12 @@ public class UserRn extends GenRn {
         userDao.save(user);
 
         if (user.getAddress() != null) {
-            final GenericDAO<Address> genDao = new GenericDAO<>(connection, Address.class);
+            final GenDao genDao = GenDao.newInstance(Address.class, connection);
             genDao.save(user.getAddress());
         }
 
         if (user.getBank() != null) {
-            final GenericDAO<Bank> genDao = new GenericDAO<>(connection, Bank.class);
+            final GenDao genDao = GenDao.newInstance(Bank.class, connection);
             genDao.save(user.getBank());
         }
 

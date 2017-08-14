@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.AlertDao;
 import br.com.entitys.Alert;
@@ -21,7 +22,7 @@ public class AlertRn extends GenRn {
 
     protected List<Alert> list(final AlertFilter alertFilter, final Connection connection) throws Throwable {
 
-        final AlertDao dao = new AlertDao(connection);
+        final AlertDao dao = GenDao.newInstance(Alert.class, connection);
         return dao.list(alertFilter);
     }
 
@@ -37,7 +38,7 @@ public class AlertRn extends GenRn {
 
     protected Alert save(final Alert alert, final Connection connection) throws Throwable {
 
-        final AlertDao alertDao = new AlertDao(connection);
+        final AlertDao alertDao = GenDao.newInstance(Alert.class, connection);
         return alertDao.save(alert);
     }
 

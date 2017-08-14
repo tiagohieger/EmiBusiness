@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.base.GenDao;
 import br.com.base.GenRn;
 import br.com.dao.ClientDao;
 import br.com.entitys.Address;
@@ -7,7 +8,7 @@ import br.com.entitys.Client;
 import br.com.entitys.Product;
 import br.com.factory.Connection;
 import br.com.filters.ClientFilter;
-import br.com.generic.GenericDAO;
+import br.com.generic.GenericDao;
 import java.util.List;
 
 public class ClientRn extends GenRn {
@@ -24,7 +25,7 @@ public class ClientRn extends GenRn {
 
     protected List<Client> list(final ClientFilter clientFilter, final Connection connection) throws Throwable {
 
-        final ClientDao dao = new ClientDao(connection);
+        final ClientDao dao = GenDao.newInstance(Client.class, connection);
         return dao.list(clientFilter);
     }
 
@@ -40,7 +41,7 @@ public class ClientRn extends GenRn {
 
     protected Client save(final Client client, final Connection connection) throws Throwable {
 
-        final ClientDao clientDao = new ClientDao(connection);
+        final ClientDao clientDao = GenDao.newInstance(Client.class, connection);
         clientDao.save(client);
 
         if (client.getUser() != null) {
@@ -49,12 +50,12 @@ public class ClientRn extends GenRn {
         }
 
         if (client.getAddress() != null) {
-            final GenericDAO<Address> genDao = new GenericDAO<>(connection, Address.class);
+            final GenDao genDao = GenDao.newInstance(Address.class, connection);
             genDao.save(client.getAddress());
         }
 
         if (!client.getProducts().isEmpty()) {
-            final GenericDAO<Product> genDao = new GenericDAO<>(connection, Product.class);
+            final GenDao genDao = GenDao.newInstance(Product.class, connection);
             for (final Product product : client.getProducts()) {
                 genDao.save(product);
             }
