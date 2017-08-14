@@ -40,8 +40,7 @@ public class IndicationRn extends GenRn {
 
     protected Indication save(final Indication indication, final Connection connection) throws Throwable {
 
-        final IndicationDao indicationDao = GenDao.newInstance(Indication.class, connection);
-        indicationDao.save(indication);
+        final IndicationDao indicationDao = GenDao.newInstance(Indication.class, connection);       
 
         if (indication.getAddress() != null) {
             final GenDao genDao = GenDao.newInstance(Address.class, connection);
@@ -52,6 +51,8 @@ public class IndicationRn extends GenRn {
             final GenDao genDao = GenDao.newInstance(PaymentVoucher.class, connection);
             genDao.save(indication.getPaymentVoucher());
         }
+        
+         indicationDao.save(indication);
 
         return indication;
     }

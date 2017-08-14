@@ -41,8 +41,7 @@ public class UserRn extends GenRn {
     protected User save(final User user, final Connection connection) throws Throwable {
 
         final UserDao userDao = new UserDao(connection);
-        userDao.save(user);
-
+        
         if (user.getAddress() != null) {
             final GenDao genDao = GenDao.newInstance(Address.class, connection);
             genDao.save(user.getAddress());
@@ -52,6 +51,8 @@ public class UserRn extends GenRn {
             final GenDao genDao = GenDao.newInstance(Bank.class, connection);
             genDao.save(user.getBank());
         }
+        
+        userDao.save(user);
 
         return user;
     }

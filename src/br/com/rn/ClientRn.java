@@ -8,7 +8,6 @@ import br.com.entitys.Client;
 import br.com.entitys.Product;
 import br.com.factory.Connection;
 import br.com.filters.ClientFilter;
-import br.com.generic.GenericDao;
 import java.util.List;
 
 public class ClientRn extends GenRn {
@@ -41,8 +40,7 @@ public class ClientRn extends GenRn {
 
     protected Client save(final Client client, final Connection connection) throws Throwable {
 
-        final ClientDao clientDao = GenDao.newInstance(Client.class, connection);
-        clientDao.save(client);
+        final ClientDao clientDao = GenDao.newInstance(Client.class, connection);       
 
         if (client.getUser() != null) {
             final UserRn userRn = new UserRn();
@@ -60,6 +58,8 @@ public class ClientRn extends GenRn {
                 genDao.save(product);
             }
         }
+        
+         clientDao.save(client);
 
         return client;
     }
