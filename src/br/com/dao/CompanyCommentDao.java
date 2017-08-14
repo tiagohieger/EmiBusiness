@@ -18,12 +18,12 @@ public class CompanyCommentDao extends GenDao<CompanyComment, CompanyCommentFilt
     @Override
     public List<CompanyComment> list(CompanyCommentFilter filter) throws IllegalAccessException,
             InstantiationException, SQLException, ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.list(filter);
     }
 
     @Override
     public Query getQuery(CompanyCommentFilter filter, String... colsToReturn) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.getQuery(filter, colsToReturn);
     }
 
 }

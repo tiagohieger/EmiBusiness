@@ -18,12 +18,12 @@ public class IndicationCommentDao extends GenDao<IndicationComment, IndicationCo
     @Override
     public List<IndicationComment> list(IndicationCommentFilter filter) throws IllegalAccessException,
             InstantiationException, SQLException, ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.list(filter);
     }
 
     @Override
     public Query getQuery(IndicationCommentFilter filter, String... colsToReturn) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.getQuery(filter, colsToReturn);
     }
 
 }
