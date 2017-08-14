@@ -122,10 +122,10 @@ public class ClientDao extends GenDao<Client, ClientFilter> {
             sql.append(" AND ( ");
             sql.append(" (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.NAME)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.CONTACT)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append(") LIKE ?) ");
+            sql.append(" OR (").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.DOCUMENT)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.EMAIL)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.FANTASY)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE)).append(") LIKE ?) ");
+            sql.append(" OR (").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PHONE_TYPE)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Client.TABLE_NAME, Client.Columns.PERSON_TYPE)).append(") LIKE ?) ");
             sql.append(" ) ");
