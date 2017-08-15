@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.ClientDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
@@ -11,6 +10,9 @@ import br.com.filters.ClientFilter;
 import java.util.List;
 
 public class ClientRn extends GenRn {
+
+    protected ClientRn() {
+    }
 
     public List<Client> list(final ClientFilter clientFilter) throws Throwable {
 

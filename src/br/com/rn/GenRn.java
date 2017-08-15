@@ -1,5 +1,6 @@
-package br.com.base;
+package br.com.rn;
 
+import br.com.dao.GenDao;
 import br.com.entitys.Entity;
 import br.com.factory.ConnectionManage;
 import br.com.types.ConnectionType;

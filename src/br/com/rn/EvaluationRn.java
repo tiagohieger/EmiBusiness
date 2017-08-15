@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.EvaluationDao;
 import br.com.entitys.Evaluation;
 import br.com.factory.Connection;
@@ -9,6 +8,9 @@ import br.com.filters.EvaluationFilter;
 import java.util.List;
 
 public class EvaluationRn extends GenRn {
+    
+    protected EvaluationRn() {
+    }
 
     public List<Evaluation> list(final EvaluationFilter evaluationFilter) throws Throwable {
 

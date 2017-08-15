@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.IndicationDao;
 import br.com.entitys.Address;
 import br.com.entitys.Indication;
@@ -11,6 +10,9 @@ import br.com.filters.IndicationFilter;
 import java.util.List;
 
 public class IndicationRn extends GenRn {
+    
+    protected IndicationRn() {
+    }
 
     public List<Indication> list(final IndicationFilter indicationFilter) throws Throwable {
 

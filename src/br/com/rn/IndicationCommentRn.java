@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.IndicationCommentDao;
 import br.com.entitys.IndicationComment;
 import br.com.factory.Connection;
@@ -9,6 +8,9 @@ import br.com.filters.IndicationCommentFilter;
 import java.util.List;
 
 public class IndicationCommentRn extends GenRn {
+
+    protected IndicationCommentRn() {
+    }
 
     public List<IndicationComment> list(final IndicationCommentFilter icFilter) throws Throwable {
 

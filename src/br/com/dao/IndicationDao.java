@@ -1,6 +1,5 @@
 package br.com.dao;
 
-import br.com.base.GenDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class IndicationDao extends GenDao<Indication, IndicationFilter> {
 
-    public IndicationDao(final Connection connection) {
+    protected IndicationDao(final Connection connection) {
         super(connection, Indication.class);
     }
 

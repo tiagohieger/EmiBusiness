@@ -1,4 +1,4 @@
-package br.com.base;
+package br.com.dao;
 
 import br.com.constants.HasFilter;
 import br.com.entitys.Entity;

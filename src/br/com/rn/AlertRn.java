@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.AlertDao;
 import br.com.entitys.Alert;
 import br.com.factory.Connection;
@@ -10,6 +9,9 @@ import java.util.List;
 
 public class AlertRn extends GenRn {
 
+    protected AlertRn() {
+    }
+       
     public List<Alert> list(final AlertFilter alertFilter) throws Throwable {
 
         final Connection connection = DB.getConnection();

@@ -1,7 +1,7 @@
 package teste;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
+import br.com.rn.GenRn;
 import br.com.entitys.Address;
 import br.com.entitys.Alert;
 import br.com.scripts.Scripts;
