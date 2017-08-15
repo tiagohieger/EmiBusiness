@@ -41,7 +41,7 @@ public class GenDao<E extends Entity, F extends EntityFilter> extends GenericDao
 
             // Cria uma instância da Dao
             return (DAO) daoClass
-                    .getConstructor(Connection.class)
+                    .getDeclaredConstructor(Connection.class)
                     .newInstance(connection);
 
         } catch (ClassNotFoundException | IllegalAccessException
