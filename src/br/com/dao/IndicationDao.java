@@ -154,7 +154,7 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
 
         if (filter.getClient() != null) {
             sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.CLIENT)).append(" = ? ");
-            query.addParam(filter.getClient().toString());
+            query.addParam(filter.getClient());
         }
 
         if (filter.getStatus() != null) {
