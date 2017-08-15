@@ -122,7 +122,7 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
             sql.append(" AND ( ");
             sql.append(" (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.NAME)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.DOCUMENT)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append(") LIKE ?) ");
+            sql.append(" OR (").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.STATUS)).append(") LIKE ?) ");
             sql.append(" ) ");
