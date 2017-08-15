@@ -8,6 +8,7 @@ import br.com.filters.EntityFilter;
 import br.com.generic.GenericDao;
 import br.com.utils.PersistenceUtils;
 import br.com.utils.SQLUtils;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,15 +40,13 @@ public class GenDao<E extends Entity, F extends EntityFilter> extends GenericDao
             // Carrega a classe da Dao especifia da classe passada
             final Class daoClass = GenDao.class.getClassLoader().loadClass(classPath.toString());
 
-            // Cria uma instância da Dao
-            return (DAO) daoClass
-                    .getConstructor(Connection.class)
-                    .newInstance(connection);
+            final Constructor c = daoClass.getDeclaredConstructor(Connection.class);
+            c.setAccessible(true);
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InstantiationException
-                | NoSuchMethodException | SecurityException
-                | InvocationTargetException ignore) {
+            // Cria uma instância da Dao
+            return (DAO) c.newInstance(connection);
+
+        } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException ignore) {
 
             // Como não foi encontrada uma Dao específica retorna uma genérica
             return (DAO) new GenDao(connection, entity);
@@ -169,5 +168,5 @@ public class GenDao<E extends Entity, F extends EntityFilter> extends GenericDao
         return query;
 
     }
-    
+
 }
