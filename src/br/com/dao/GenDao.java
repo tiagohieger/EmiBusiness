@@ -1,4 +1,4 @@
-package br.com.base;
+package br.com.dao;
 
 import br.com.constants.HasFilter;
 import br.com.entitys.Entity;
@@ -20,6 +20,8 @@ public class GenDao<E extends Entity, F extends EntityFilter> extends GenericDao
 
     protected String getTableName() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 
+        // Lê o valor do atributo estático TABLE_NAME que estiver na classe 
+        // especifica
         final String tableName = String.valueOf(specificClass.getField("TABLE_NAME").get(null));
 
         return tableName;
@@ -167,5 +169,5 @@ public class GenDao<E extends Entity, F extends EntityFilter> extends GenericDao
         return query;
 
     }
-
+    
 }

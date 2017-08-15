@@ -1,6 +1,5 @@
 package br.com.dao;
 
-import br.com.base.GenDao;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
 import br.com.entitys.Ticket;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class TicketDao extends GenDao<Ticket, TicketFilter> {
 
-    public TicketDao(final Connection connection) {
+    protected TicketDao(final Connection connection) {
         super(connection, Ticket.class);
     }
 

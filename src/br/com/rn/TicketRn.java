@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.TicketDao;
 import br.com.entitys.Ticket;
 import br.com.factory.Connection;
@@ -9,6 +8,9 @@ import br.com.filters.TicketFilter;
 import java.util.List;
 
 public class TicketRn extends GenRn {
+
+    protected TicketRn() {
+    }
 
     public List<Ticket> list(final TicketFilter ticketFilter) throws Throwable {
 

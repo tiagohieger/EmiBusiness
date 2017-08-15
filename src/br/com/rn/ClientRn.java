@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.ClientDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
@@ -11,6 +10,9 @@ import br.com.filters.ClientFilter;
 import java.util.List;
 
 public class ClientRn extends GenRn {
+
+    protected ClientRn() {
+    }
 
     public List<Client> list(final ClientFilter clientFilter) throws Throwable {
 
@@ -28,11 +30,17 @@ public class ClientRn extends GenRn {
         return dao.list(clientFilter);
     }
 
-    public Client save(final Client client) throws Throwable {
+    public Client save(Client client) throws Throwable {
 
         final Connection connection = DB.getConnection();
         try {
-            return save(client, connection);
+            connection.startTransaction();
+            client = save(client, connection);
+            connection.saveTransaction();
+            return client;
+        } catch (Throwable ex) {
+            connection.cancelTransaction();
+            throw ex;
         } finally {
             DB.closeConnection(connection);
         }
@@ -40,7 +48,7 @@ public class ClientRn extends GenRn {
 
     protected Client save(final Client client, final Connection connection) throws Throwable {
 
-        final ClientDao clientDao = GenDao.newInstance(Client.class, connection);       
+        final ClientDao clientDao = GenDao.newInstance(Client.class, connection);
 
         if (client.getUser() != null) {
             final UserRn userRn = new UserRn();
@@ -58,8 +66,8 @@ public class ClientRn extends GenRn {
                 genDao.save(product);
             }
         }
-        
-         clientDao.save(client);
+
+        clientDao.save(client);
 
         return client;
     }

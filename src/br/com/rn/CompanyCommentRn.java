@@ -1,7 +1,6 @@
 package br.com.rn;
 
-import br.com.base.GenDao;
-import br.com.base.GenRn;
+import br.com.dao.GenDao;
 import br.com.dao.CompanyCommentDao;
 import br.com.entitys.CompanyComment;
 import br.com.factory.Connection;
@@ -9,6 +8,9 @@ import br.com.filters.CompanyCommentFilter;
 import java.util.List;
 
 public class CompanyCommentRn extends GenRn {
+
+    protected CompanyCommentRn() {
+    }
 
     public List<CompanyComment> list(final CompanyCommentFilter ccFilter) throws Throwable {
 

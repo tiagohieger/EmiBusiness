@@ -1,6 +1,5 @@
 package br.com.dao;
 
-import br.com.base.GenDao;
 import br.com.entitys.Address;
 import br.com.entitys.Client;
 import br.com.entitys.Entity;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class ClientDao extends GenDao<Client, ClientFilter> {
 
-    public ClientDao(final Connection connection) {
+    protected ClientDao(final Connection connection) {
         super(connection, Client.class);
     }
 

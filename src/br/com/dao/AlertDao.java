@@ -1,6 +1,5 @@
 package br.com.dao;
 
-import br.com.base.GenDao;
 import br.com.entitys.Alert;
 import br.com.entitys.Entity;
 import br.com.entitys.User;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class AlertDao extends GenDao<Alert, AlertFilter> {
 
-    public AlertDao(final Connection connection) {
+    protected AlertDao(final Connection connection) {
         super(connection, Alert.class);
     }
 
