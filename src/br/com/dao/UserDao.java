@@ -99,7 +99,7 @@ public class UserDao extends GenDao<User, UserFilter> {
             sql.append(" (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.NAME)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.LOGIN)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.DOCUMENT)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PHONE)).append(") LIKE ?) ");
+            sql.append(" OR (").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PHONE)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PERSON_TYPE)).append(") LIKE ?) ");
             sql.append(" ) ");
 
