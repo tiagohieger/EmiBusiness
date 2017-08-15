@@ -5,8 +5,6 @@ import br.com.entitys.IndicationComment;
 import br.com.factory.Connection;
 import br.com.factory.Query;
 import br.com.filters.IndicationCommentFilter;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class IndicationCommentDao extends GenDao<IndicationComment, IndicationCommentFilter> {
@@ -16,13 +14,12 @@ public class IndicationCommentDao extends GenDao<IndicationComment, IndicationCo
     }
 
     @Override
-    public List<IndicationComment> list(IndicationCommentFilter filter) throws IllegalAccessException,
-            InstantiationException, SQLException, ClassNotFoundException, IOException {
+    public List<IndicationComment> list(IndicationCommentFilter filter) throws Throwable {
         return super.list(filter);
     }
 
     @Override
-    public Query getQuery(IndicationCommentFilter filter, String... colsToReturn) throws IOException {
+    public Query getQuery(IndicationCommentFilter filter, String... colsToReturn) throws Throwable {
         return super.getQuery(filter, colsToReturn);
     }
 
