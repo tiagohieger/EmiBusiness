@@ -55,12 +55,14 @@ public class UserRn extends GenRn {
             genDao.save(user.getAddress());
         }
 
-        if (user.getBank() != null) {
-            final GenDao genDao = GenDao.newInstance(Bank.class, connection);
-            genDao.save(user.getBank());
-        }
-
         userDao.save(user);
+
+        if (!user.getBanks().isEmpty()) {
+            final GenDao genDao = GenDao.newInstance(Bank.class, connection);
+            for (Bank bank : user.getBanks()) {
+                genDao.save(bank);
+            }
+        }
 
         return user;
     }

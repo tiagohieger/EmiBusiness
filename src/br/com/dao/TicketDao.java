@@ -86,7 +86,7 @@ public class TicketDao extends GenDao<Ticket, TicketFilter> {
             sql.append(" (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.STATUS)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.LINK)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.NOTE)).append(") LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.VALUE)).append(") LIKE ?) ");
+            sql.append(" OR (").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.VALUE)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.PAYER_DOCUMENT)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Ticket.TABLE_NAME, Ticket.Columns.BENEFICIARY_DOCUMENT)).append(") LIKE ?) ");
             sql.append(" ) ");

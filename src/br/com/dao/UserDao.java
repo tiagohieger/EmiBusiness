@@ -37,9 +37,9 @@ public class UserDao extends GenDao<User, UserFilter> {
         sql.append(" LEFT  JOIN  ")
                 .append(Bank.TABLE_NAME)
                 .append(" ON ")
-                .append(Entity.fullColumn(Bank.TABLE_NAME, Bank.Columns.ID))
+                .append(Entity.fullColumn(Bank.TABLE_NAME, Bank.Columns.USER))
                 .append(" = ")
-                .append(Entity.fullColumn(User.TABLE_NAME, User.Columns.BANK));
+                .append(Entity.fullColumn(User.TABLE_NAME, User.Columns.ID));
         sql.append(" LEFT JOIN  ")
                 .append(Address.TABLE_NAME)
                 .append(" ON ")
@@ -63,20 +63,29 @@ public class UserDao extends GenDao<User, UserFilter> {
         while (query.next()) {
 
             final Bank bank = (Bank) SQLUtils.entityPopulate(query, Bank.class);
-            final Address address = (Address) SQLUtils.entityPopulate(query, Address.class);
-            final User user = (User) SQLUtils.entityPopulate(query, User.class);
+            User user = (User) SQLUtils.entityPopulate(query, User.class);
 
-            if (bank != null) {
-                user.setBank(bank);
-            }
-            if (address != null) {
-                user.setAddress(address);
-            }
+            if (entities.contains(user)) {
 
-            entities.add(user);
+                user = entities.get(entities.indexOf(user));
+
+                if (bank != null && !user.getBanks().contains(bank)) {
+                    bank.setUser(user);
+                    user.getBanks().add(bank);
+                }
+
+            } else {
+
+                final Address address = (Address) SQLUtils.entityPopulate(query, Address.class);
+
+                if (address != null) {
+                    user.setAddress(address);
+                }
+                entities.add(user);
+            }
         }
+        
         return entities;
-
     }
 
     @Override
