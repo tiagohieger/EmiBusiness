@@ -109,7 +109,7 @@ public class UserDao extends GenDao<User, UserFilter> {
             sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.LOGIN)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.DOCUMENT)).append(") LIKE ?) ");
             sql.append(" OR (").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PHONE)).append("::TEXT LIKE ?) ");
-            sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PERSON_TYPE)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.TYPE)).append(") LIKE ?) ");
             sql.append(" ) ");
 
             for (int i = 0, paransCount = 5; i < paransCount; i++) {
@@ -118,7 +118,7 @@ public class UserDao extends GenDao<User, UserFilter> {
         }
 
         if (filter.getType() != null) {
-            sql.append(" AND ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.PERSON_TYPE)).append(" = ? ");
+            sql.append(" AND ").append(Entity.fullColumn(User.TABLE_NAME, User.Columns.TYPE)).append(" = ? ");
             query.addParam(filter.getType().toString());
         }
 

@@ -132,9 +132,9 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
             }
         }
 
-        if (filter.getType() != null) {
+        if (filter.getPersonType() != null) {
             sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(" = ? ");
-            query.addParam(filter.getType().toString());
+            query.addParam(filter.getPersonType().toString());
         }
 
         if (filter.getDocument() != null) {
