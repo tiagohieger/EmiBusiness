@@ -4,7 +4,6 @@ import br.com.dao.GenDao;
 import br.com.rn.GenRn;
 import br.com.entitys.Address;
 import br.com.entitys.Alert;
-import br.com.scripts.Scripts;
 import br.com.types.ConnectionType;
 import br.com.utils.SQLUtils;
 import java.util.logging.Level;
@@ -21,8 +20,7 @@ public class Teste {
                     5432,
                     "teste_tiago",
                     ConnectionType.POSTGRES,
-                    "br.com.entitys",
-                    Scripts.listScripts());
+                    "br.com.entitys");
         } catch (Exception ex) {
             Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
         }

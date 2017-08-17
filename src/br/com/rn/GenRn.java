@@ -1,5 +1,6 @@
 package br.com.rn;
 
+import br.com.commons.util.ThreadUtil;
 import br.com.dao.GenDao;
 import br.com.entitys.Entity;
 import br.com.factory.ConnectionManage;
@@ -8,6 +9,7 @@ import br.com.types.ConnectionType;
 public class GenRn {
 
     protected static final ConnectionManage DB = ConnectionManage.newInstance();
+    protected static final ThreadUtil THREAD_UTIL = ThreadUtil.newInstance();
 
     private final static ConnectionType CONNECTION_TYPE = ConnectionType.POSTGRES;
     private final static String PASSWORD = "trimoutec@123";
