@@ -121,17 +121,23 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
 
             sql.append(" AND ( ");
             sql.append(" (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.NAME)).append(") LIKE ?) ");
+            sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.IDENTIFIER)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.DOCUMENT)).append(") LIKE ?) ");
             sql.append(" OR (").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append("::TEXT LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(") LIKE ?) ");
             sql.append(" OR (lower( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.STATUS)).append(") LIKE ?) ");
             sql.append(" ) ");
 
-            for (int i = 0, paransCount = 5; i < paransCount; i++) {
+            for (int i = 0, paransCount = 6; i < paransCount; i++) {
                 query.addParam("%" + filter.getText().toLowerCase() + "%");
             }
         }
 
+        if (filter.getIdentifier() != null) {
+            sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.IDENTIFIER)).append(" = ? ");
+            query.addParam(filter.getIdentifier());
+        }
+        
         if (filter.getPersonType() != null) {
             sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(" = ? ");
             query.addParam(filter.getPersonType().toString());
