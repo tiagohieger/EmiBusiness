@@ -13,6 +13,8 @@ import static br.com.generic.GenericDao.DATE_FORMATTER;
 import br.com.utils.DateUtils;
 import br.com.utils.PersistenceUtils;
 import br.com.utils.SQLUtils;
+import br.com.utils.SqlUtils;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -137,7 +139,7 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
             sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.IDENTIFIER)).append(" = ? ");
             query.addParam(filter.getIdentifier());
         }
-        
+
         if (filter.getPersonType() != null) {
             sql.append(" AND ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(" = ? ");
             query.addParam(filter.getPersonType().toString());
@@ -214,6 +216,47 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
         query.addSql(sql.toString().replaceFirst("AND", "WHERE"));
 
         return query;
+    }
+
+    public void doExportarLeadsPersonalizado(final IndicationFilter filter, final String encoding, final String path)
+            throws IOException, FileNotFoundException, SQLException {
+
+        final String columns = PersistenceUtils.concat(new String[]{
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.NAME)).append(" , '') AS nome ").toString(),
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.DOCUMENT)).append(" , '') AS documento ").toString(),
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.EMAIL)).append(" , '') AS email ").toString(),
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(" , '') AS tipo_pessoa ").toString(),
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.STATUS)).append(" , '') AS status ").toString(),
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append(" , '') AS status ").toString(),});
+
+        final Query query = getQuery(filter);
+
+        final StringBuilder sql = new StringBuilder();
+
+        sql.append(" SELECT ");
+        sql.append(columns);
+        sql.append(" FROM (");
+        sql.append(query.getText());
+        sql.append(" ) AS lead_enderecos ");
+
+        //sql.append(" JOIN ");
+        //sql.append(Lead.TABLE_NAME);
+        //sql.append(" ON ");
+        //sql.append(Entity.fullColumn(Lead.TABLE_NAME, Lead.Columns.ID));
+        //sql.append(" = ");
+        //sql.append(Entity.fullColumn(LeadEndereco.TABLE_NAME, LeadEndereco.Columns.LEAD));
+        if (filter.getOrderBy() != null) {
+            sql.append(" ORDER BY ");
+            sql.append(filter.getOrderBy());
+            sql.append(" ");
+            sql.append(filter.getDirection());
+        }
+
+        query.setText(sql.toString());
+
+        final StringBuilder builder = SqlUtils.getCopyOutSql(query.getTextFull(), encoding);
+
+        SqlUtils.copyFromDb(builder.toString(), connection.getConnection(), path);
     }
 
 }
