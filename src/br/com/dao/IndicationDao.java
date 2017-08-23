@@ -227,7 +227,7 @@ public class IndicationDao extends GenDao<Indication, IndicationFilter> {
             new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.EMAIL)).append(" , '') AS email ").toString(),
             new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PERSON_TYPE)).append(" , '') AS tipo_pessoa ").toString(),
             new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.STATUS)).append(" , '') AS status ").toString(),
-            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append(" , '') AS status ").toString(),});
+            new StringBuilder().append(" coalesce( ").append(Entity.fullColumn(Indication.TABLE_NAME, Indication.Columns.PHONE)).append(" , '') AS telefone ").toString(),});
 
         final Query query = getQuery(filter);
 
